@@ -1,17 +1,20 @@
 from flask import Flask, render_template, redirect, request, flash
 from flask_mail import Mail, Message
-from config import email,senha,secret
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = secret
+app.secret_key = os.getenv("SECRET")
 
 mail_settings = {
     "MAIL_SERVER": 'smtp.office365.com',
     "MAIL_PORT": 587,
     "MAIL_USE_TLS": True,
     "MAIL_USE_SSL": False,
-    "MAIL_USERNAME": email,
-    "MAIL_PASSWORD": senha
+    "MAIL_USERNAME": os.getenv("EMAIL"),
+    "MAIL_PASSWORD": os.getenv("SENHA")
 }
 
 app.config.update(mail_settings)
